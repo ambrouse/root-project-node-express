@@ -14,7 +14,11 @@ app.use(express.json());
 // router home
 app.use('/api/home', HomeRouter);
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server running on port: ${PORT}`);
-});
+// Kiểm tra môi trường
+if (process.env.VERCEL !== '1') {
+  // Chỉ chạy khi local
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+export default app;
